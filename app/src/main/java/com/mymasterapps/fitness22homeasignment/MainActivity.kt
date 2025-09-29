@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.mymasterapps.fitness22homeasignment.ui.screen.MyWorkoutScreen
 import com.mymasterapps.fitness22homeasignment.ui.theme.Fitness22HomeAsignmentTheme
 import com.mymasterapps.fitness22homeasignment.ui.workouts.WorkoutSmokeScreen
 
@@ -21,7 +22,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Fitness22HomeAsignmentTheme {
-                Surface { WorkoutSmokeScreen() }
+                MyWorkoutScreen()
+             //   Surface { WorkoutSmokeScreen() }
 //                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    Greeting(
 //                        name = "Android",
