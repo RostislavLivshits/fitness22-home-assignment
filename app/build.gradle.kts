@@ -44,6 +44,8 @@ android {
 
 dependencies {
 
+    implementation(libs.coil.compose)
+
     implementation(libs.moshi)
     ksp(libs.moshi.kotlin.codegen)
 
