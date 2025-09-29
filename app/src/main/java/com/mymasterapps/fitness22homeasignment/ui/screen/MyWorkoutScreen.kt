@@ -1,13 +1,18 @@
 package com.mymasterapps.fitness22homeasignment.ui.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -58,7 +63,7 @@ fun MyWorkoutScreen(vm: WorkoutViewModel = viewModel()) {
             workoutName = "Push"
         )
 
-     //   val count = day?.exercises?.size ?: 0
+        //   val count = day?.exercises?.size ?: 0
 
         val list = day?.exercises ?: emptyList()
         WorkoutSection(
@@ -163,30 +168,65 @@ fun WorkoutSection(
     calories: Int,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    Surface(
-        color = MaterialTheme.colorScheme.surfaceVariant,
-        tonalElevation = 1.dp,
-        shape = RoundedCornerShape(16.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-    ) {
-        Column(Modifier.padding(vertical = 8.dp)) {
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(20.dp)
-            ) {
-                Text("⚡ $count Exercises")
-                Text("⏱ $minutes Min")
-                Text("🔥 $calories Cal")
+    Box(Modifier.fillMaxWidth()) {
+        Surface(
+            color = MaterialTheme.colorScheme.surfaceVariant,
+            tonalElevation = 1.dp,
+            shape = RoundedCornerShape(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+        ) {
+            Column(Modifier.padding(vertical = 8.dp)) {
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
+                    Text("⚡ $count Exercises")
+                    Text("⏱ $minutes Min")
+                    Text("🔥 $calories Cal")
+                }
+                HorizontalDivider(color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f))
+                Column(Modifier.padding(top = 4.dp)) {
+                    content()
+                }
             }
-            HorizontalDivider(color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f))
-            Column(Modifier.padding(top = 4.dp)) {
-                content()
-            }
+            StartWorkoutButton(
+                onClick = { /* TODO */ },
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .navigationBarsPadding()
+            )
         }
+
+    }
+}
+
+@Composable
+fun StartWorkoutButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(bottom = 21.dp, start = 9.dp, end = 9.dp)
+            .height(69.dp),
+        shape = RoundedCornerShape(28.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color(0xFFFFD600),
+            contentColor = Color(0xFF1B1B1B)
+        ),
+        elevation = ButtonDefaults.buttonElevation(defaultElevation = 2.dp),
+        contentPadding = PaddingValues(vertical = 0.dp)
+    ) {
+        Text(
+            "START WORKOUT",
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+        )
     }
 }
 
