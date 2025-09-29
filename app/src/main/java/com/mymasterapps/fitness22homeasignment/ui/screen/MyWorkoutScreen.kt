@@ -1,7 +1,6 @@
 package com.mymasterapps.fitness22homeasignment.ui.screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -10,10 +9,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mymasterapps.fitness22homeasignment.ui.components.ExerciseCard
@@ -24,7 +22,7 @@ fun MyWorkoutScreen(vm: WorkoutViewModel = viewModel()) {
     val day by vm.day.collectAsState()
 
     var selectedDay by remember { mutableIntStateOf(1) }
-    val availableDays = listOf(1, 3, 4)
+    val availableDays = listOf(1,2, 3, 4)
 
     LaunchedEffect(selectedDay) { vm.load(selectedDay) }
 
@@ -52,7 +50,7 @@ fun MyWorkoutScreen(vm: WorkoutViewModel = viewModel()) {
                 FilterChip(
                     selected = selectedDay == d,
                     onClick = { selectedDay = d },
-                    label = { Text("Day $d") }
+                    label = { Text( if(d!=2)  "Day $d" else "V" , modifier = Modifier.width(48.dp), textAlign = TextAlign.Center) }
                 )
             }
         }
@@ -107,30 +105,30 @@ fun MyWorkoutScreen(vm: WorkoutViewModel = viewModel()) {
     }
 }
 
-@Composable
-private fun SummaryBar(
-    count: Int,
-    minutes: Int,
-    calories: Int
-) {
-    Surface(
-        color = MaterialTheme.colorScheme.surfaceVariant,
-        tonalElevation = 1.dp,
-        shape = MaterialTheme.shapes.medium,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp)
-    ) {
-        Row(
-            Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
-        ) {
-            Text("⚡ $count Exercises")
-            Text("⏱ $minutes Min")
-            Text("🔥 $calories Cal")
-        }
-    }
-}
+//@Composable
+//private fun SummaryBar(
+//    count: Int,
+//    minutes: Int,
+//    calories: Int
+//) {
+//    Surface(
+//        color = MaterialTheme.colorScheme.surfaceVariant,
+//        tonalElevation = 1.dp,
+//        shape = MaterialTheme.shapes.medium,
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(horizontal = 12.dp)
+//    ) {
+//        Row(
+//            Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+//            horizontalArrangement = Arrangement.spacedBy(20.dp)
+//        ) {
+//            Text("⚡ $count Exercises")
+//            Text("⏱ $minutes Min")
+//            Text("🔥 $calories Cal")
+//        }
+//    }
+//}
 
 @Composable
 fun UpcomingHeader(
