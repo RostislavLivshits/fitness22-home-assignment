@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -132,29 +134,49 @@ fun MyWorkoutScreen(vm: WorkoutViewModel = viewModel()) {
 
 @Composable
 fun UpcomingHeader(
-    weekText: String = "Week 1/5 · Foundations",
-    phase: String = "UPCOMING WORKOUT",
-    workoutName: String = "Push",
+    weekText: String,
+    phase: String,
+    workoutName: String,
+    onEditClick: () -> Unit = {}
 ) {
     Column(
-        Modifier
+        modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
         Text(
-            weekText,
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            text = weekText,
+            style = MaterialTheme.typography.bodyMedium.copy(
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = phase,
+                style = MaterialTheme.typography.headlineSmall.copy(
+                    fontWeight = FontWeight.Bold
+                )
+            )
+            IconButton(onClick = onEditClick) {
+                Icon(
+                    imageVector = Icons.Rounded.Edit,
+                    contentDescription = "Edit workout",
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        }
+
         Text(
-            phase,
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.ExtraBold
-        )
-        Text(
-            workoutName,
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            text = workoutName,
+            style = MaterialTheme.typography.titleMedium.copy(
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            ),
+            modifier = Modifier.padding(top = 2.dp)
         )
     }
 }
@@ -186,6 +208,7 @@ fun WorkoutSection(
                     Text("⏱ $minutes Min")
                     Text("🔥 $calories Cal")
                 }
+
                 HorizontalDivider(color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f))
                 Column(Modifier.padding(top = 4.dp)) {
                     content()
@@ -227,6 +250,7 @@ fun StartWorkoutButton(
         )
     }
 }
+
 
 private fun estimateMinutes(count: Int) = (count * 8.5).toInt().coerceAtLeast(10)
 private fun estimateCalories(count: Int) = (count * 40).coerceAtLeast(120)
