@@ -44,6 +44,9 @@ android {
 
 dependencies {
 
+    implementation(libs.moshi)
+    ksp(libs.moshi.kotlin.codegen)
+
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)

@@ -1,5 +1,7 @@
 [versions]
 
+moshi = "1.15.1"
+
 ksp = "2.0.20-1.0.24"
 hilt = "2.52"
 hilt-nav = "1.2.0"
@@ -15,6 +17,8 @@ activityCompose = "1.11.0"
 composeBom = "2024.09.00"
 
 [libraries]
+moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
+moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
